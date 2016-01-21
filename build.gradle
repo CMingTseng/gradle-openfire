@@ -41,7 +41,7 @@ dependencies {
 // release publishing to gradle plugin repo
 pluginBundle {
     website = 'https://github.com/driverpt/gradle-openfire'
-    vcsUrl = 'https://github.com/kropp/gradle-openfire'
+    vcsUrl = 'https://github.com/driverpt/gradle-openfire'
     description = 'A plugin for packaging Openfire Server plugins'
     tags = ['openfire', 'xmpp']
     plugins {
