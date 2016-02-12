@@ -16,9 +16,15 @@ class OpenfireJar extends Jar {
 
     private FileCollection classpath
     private final DefaultCopySpec openfireSpec
+    private final DefaultCopySpec web
+    private final DefaultCopySpec database
+    private final DefaultCopySpec i18n
 
     OpenfireJar() {
         openfireSpec = rootSpec.addChildBeforeSpec(mainSpec)
+        web = openfireSpec.into('web')
+        database = openfireSpec.into('database')
+        i18n = openfireSpec.into('i18n')
 
         openfireSpec.into('classes') {
             from {
@@ -26,10 +32,11 @@ class OpenfireJar extends Jar {
                 classpath ? classpath.filter { File file -> file.isDirectory() } : []
             }
         }
+
         openfireSpec.into('lib') {
             from {
                 def classpath = getClasspath()
-                classpath ? classpath.filter {File file -> file.isFile()} : []
+                classpath ? classpath.filter { File file -> file.isFile() } : []
             }
         }
 
@@ -39,6 +46,24 @@ class OpenfireJar extends Jar {
             }
             rename {
                 'plugin.xml'
+            }
+        }
+
+        web.into('') {
+            from {
+                getWebAppDir()
+            }
+        }
+
+        database.into('') {
+            from {
+                getDatabaseDir()
+            }
+        }
+
+        i18n.into('') {
+            from {
+                getI18nDir()
             }
         }
     }
